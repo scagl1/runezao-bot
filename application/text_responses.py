@@ -1,6 +1,6 @@
-class TextResponses():
-  def get_help_command_text(self):
-    return """
+class TextResponses:
+    def get_help_command_text(self):
+        return """
   **📜 Lista de Comandos**
 
 • **bob!skill _X Y_**
@@ -25,9 +25,9 @@ class TextResponses():
 • **bob!news**
   Retorna as 3 notícias mais recentes do RuneScape 3.
   """
-  
-  def get_incorrect_command(self):
-    return """
+
+    def get_incorrect_command(self):
+        return """
   Desculpe, não consegui entender o que você disse.
 Pode ser que algum comando descrito ainda não esteja implementado :(
   """
