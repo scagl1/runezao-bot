@@ -1,28 +1,25 @@
 import os
-import discord
 import logging
 from dotenv import load_dotenv
+from infrastructure.discord_client import DiscordClient
+from application.publisher import Publisher
+from application.controller import Controller
 
-load_dotenv()
-token = os.getenv('DISCORD_TOKEN')
+def main():
+    load_dotenv()
+    token = os.getenv('DISCORD_TOKEN')
 
-intents = discord.Intents.default()
-intents.message_content = True
+    if token == None:
+        raise Exception("Token vazio")
 
-client = discord.Client(intents=intents)
+    logger = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+    controller_instance = Controller()
+    
+    publisher_instance = Publisher()
+    publisher_instance.subscribe(controller_instance)
+    
+    client = DiscordClient(token=token, publisher_instance=publisher_instance)
+    client.run(logger=logger, level=logging.DEBUG)
 
-logger = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-
-@client.event
-async def on_ready():
-    print(f'We have logged in as {client.user}')
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
-    if message.content.startswith('$hello'):
-        await message.channel.send('Hello!')
-
-client.run(token, log_handler=logger, log_level=logging.DEBUG)
+if __name__ == "__main__":
+    main()
