@@ -4,5 +4,5 @@ from typing import Any
 
 class EventListener(ABC):
     @abstractmethod
-    async def handle_event(self, event_name: str, event_obj: Any):
+    async def handle_event(self, event_name: str, event_obj: Any) -> None:
         pass
