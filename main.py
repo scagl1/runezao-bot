@@ -2,8 +2,8 @@ import os
 import logging
 from dotenv import load_dotenv
 from infrastructure.discord_client import DiscordClient
-from application.publisher import Publisher
-from application.controller import Controller
+from infrastructure.event_bus import EventBus
+from infrastructure.muxes.message_event_mux import MessageEventMux
 
 
 def main():
@@ -14,12 +14,12 @@ def main():
         raise Exception("Token vazio")
 
     logger = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
-    controller_instance = Controller()
+    message_event_mux_instance = MessageEventMux()
 
-    publisher_instance = Publisher()
-    publisher_instance.subscribe(controller_instance)
+    event_bus_instance = EventBus()
+    event_bus_instance.add_listener(event_listener=message_event_mux_instance)
 
-    client = DiscordClient(token=token, publisher_instance=publisher_instance)
+    client = DiscordClient(token=token, publisher_instance=event_bus_instance)
     client.run(logger=logger, level=logging.DEBUG)
 
 

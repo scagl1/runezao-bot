@@ -1,10 +1,10 @@
 from logging import FileHandler
 import discord
-from application.publisher import Publisher
+from infrastructure.event_bus import EventBus
 
 
 class DiscordClient:
-    def __init__(self, token: str, publisher_instance: Publisher):
+    def __init__(self, token: str, publisher_instance: EventBus):
         self.token = token
         self.intents = discord.Intents.default()
         self.client = discord.Client(intents=self.intents)
@@ -20,10 +20,9 @@ class DiscordClient:
         if message.author == self.client.user:
             return
 
-        if message.content.startswith("bob!"):
-            await self.publisher_instance.notify_subscribers(
-                "msg_received", event_handler=message
-            )
+        await self.publisher_instance.notify_listeners(
+            event_name="msg_received", event_obj=message
+        )
 
     def run(self, logger: FileHandler, level: int):
         self.client.run(token=self.token, log_handler=logger, log_level=level)
