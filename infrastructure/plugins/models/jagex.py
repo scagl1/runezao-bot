@@ -55,3 +55,22 @@ class GetPlayerProfileModel:
     melee: int
     combatlevel: int
     loggedIn: str
+
+
+def parse_player_profile(data: dict) -> GetPlayerProfileModel:
+    return GetPlayerProfileModel(
+        magic=data["magic"],
+        questsstarted=data["questsstarted"],
+        totalskill=data["totalskill"],
+        questscomplete=data["questscomplete"],
+        questsnotstarted=data["questsnotstarted"],
+        totalxp=data["totalxp"],
+        ranged=data["ranged"],
+        activities=[Activity(**activity) for activity in data.get("activities", [])],
+        skillvalues=[SkillValue(**skill) for skill in data.get("skillvalues", [])],
+        name=data["name"],
+        rank=data["rank"],
+        melee=data["melee"],
+        combatlevel=data["combatlevel"],
+        loggedIn=data.get("loggedIn") == "true",
+    )

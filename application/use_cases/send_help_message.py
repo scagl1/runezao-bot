@@ -11,7 +11,7 @@ class SendHelpMessage:
       Lista o resumo de experiência dos últimos 12 meses.  
       _X = skill_ | _Y = nome do personagem_
 
-    • **bob!inspect _X_**
+    • **bob!profile _X_**
       Mostra o resumo do perfil do jogador.
       _X = nome do personagem_
 
