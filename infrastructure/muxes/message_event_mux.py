@@ -16,7 +16,7 @@ class MessageEventMux(EventListener):
 
         if message_content.startswith("bob!"):
             if "help" in message_content:
-                await SendHelpMessage(event_obj).execute()
+                await SendHelpMessage().execute(event_obj)
                 return
 
             if "profile" in message_content:
