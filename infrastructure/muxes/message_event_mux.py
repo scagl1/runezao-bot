@@ -1,3 +1,4 @@
+from application.use_cases.send_player_count_message import SendPlayerCount
 from application.use_cases.send_player_profile import SendPlayerProfile
 from infrastructure.event_listener import EventListener
 from typing import Any
@@ -28,6 +29,10 @@ class MessageEventMux(EventListener):
                 await SendPlayerProfile(JagexHttpClient()).execute(
                     event_obj, player_name
                 )
+                return
+
+            if "playercount" in message_content:
+                await SendPlayerCount(JagexHttpClient()).execute(event_obj)
                 return
 
             await SendIncorrectCommandMessage(event_obj).execute()

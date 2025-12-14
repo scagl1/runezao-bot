@@ -13,6 +13,8 @@ class JagexHttpClient:
     _APPS_BASE_URL = "https://apps.runescape.com"
     _USER_HIGHSCORE_ENDPOINT = "/m=hiscore/ranking?user="
     _USER_AVATAR_IMG_ENDPOINT = "/m=avatar-rs/$/chat.png"
+    PLAYER_COUNT_URL = "https://www.runescape.com/player_count.js?varname=iPlayerCount&callback=jQuery000000000000000_0000000000&_=0"
+    RUNESCAPE_ICON_IMAGE_URL = "https://www.runescape.com/img/global/mobile.png?1"
 
     def get_user_highscore_url(self, user_name: str) -> str:
         return f"{self._JAGEX_BASE_URL}{self._USER_HIGHSCORE_ENDPOINT}{user_name}"
@@ -61,3 +63,12 @@ class JagexHttpClient:
             raise PlayerNotFoundError
 
         return parse_player_profile(data)
+
+    def get_player_count(self):
+        response = requests.get(self.PLAYER_COUNT_URL)
+        data = response.text.split("(")[1].split(")")[0]
+
+        if response.status_code != 200:
+            raise JagexError
+
+        return data
