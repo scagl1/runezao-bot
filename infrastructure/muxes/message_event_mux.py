@@ -22,7 +22,7 @@ class MessageEventMux(EventListener):
             if "profile" in message_content:
                 split_message_content = message_content.split(" ")
                 if len(split_message_content) < 2:
-                    await SendIncorrectCommandMessage(event_obj).execute()
+                    await SendIncorrectCommandMessage().execute(event_obj)
                     return
 
                 player_name = split_message_content[1]
@@ -35,4 +35,4 @@ class MessageEventMux(EventListener):
                 await SendPlayerCount(JagexHttpClient()).execute(event_obj)
                 return
 
-            await SendIncorrectCommandMessage(event_obj).execute()
+            await SendIncorrectCommandMessage().execute(event_obj)
