@@ -3,7 +3,7 @@ from typing import Any
 
 import discord
 
-from infrastructure.plugins.jagex_errors import JagexError
+from infrastructure.plugins.errors.jagex_http_client import JagexError
 from infrastructure.plugins.jagex_http_client import JagexHttpClient
 
 

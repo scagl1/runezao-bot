@@ -1,7 +1,7 @@
 import requests
 
-from infrastructure.plugins.jagex_errors import JagexError, PlayerNotFoundError
-from infrastructure.plugins.models.jagex import (
+from infrastructure.plugins.errors.jagex_http_client import JagexError, PlayerNotFoundError
+from infrastructure.plugins.models.jagex_http_client import (
     GetPlayerMonthlyXPModel,
     GetPlayerProfileModel,
     parse_player_profile,

@@ -1,6 +1,6 @@
 from typing import Any
 from infrastructure.plugins.web_scrapper import WebScrapperClient
-from infrastructure.plugins.web_scrapper_errors import JagexWebsiteError
+from infrastructure.plugins.errors.web_scrapper import JagexWebsiteError
 
 
 class SendRecentNews:

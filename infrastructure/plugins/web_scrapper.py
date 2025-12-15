@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-from infrastructure.plugins.web_scrapper_errors import JagexWebsiteError
+from infrastructure.plugins.errors.web_scrapper import JagexWebsiteError
 
 
 class WebScrapperClient:
