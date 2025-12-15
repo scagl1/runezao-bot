@@ -52,8 +52,12 @@ class SendHelpMessage:
         )
 
         embed_message.add_field(
-            name="🔹 bob!news",
-            value="Retorna as 3 notícias mais recentes do RuneScape 3.",
+            name="🔹 bob!news X",
+            value=(
+                "Retorna as **X notícias mais recentes** do RuneScape 3.\n"
+                "• `X` define a quantidade de notícias exibidas\n"
+                "• Valor máximo permitido: **10** (valores maiores serão limitados automaticamente)"
+            ),
             inline=False,
         )
 
